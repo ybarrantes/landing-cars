@@ -83,17 +83,27 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## Development
 
-PHP >= 7.2
+### Requerimientos
+
+- PHP >= 7.2
+- Composer
+- Nodejs
+- npm
+- MariaDB
 
 Crear base de datos Sql
 CREATE DATABASE `landing_cars` COLLATE 'utf8mb4_unicode_ci';
 
+Configurar conexiones DB en el archivo .env
+
+Configurar el virtual host para emular un dominio
 
 Lista de comandos para correr en desarrollo
 
 composer install
 
 composer dump-autoload
+php artisan key:generate
 php artisan migrate
 php artisan db:seed --class=InitialSeeder
 
