@@ -76,3 +76,27 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+***
+
+---
+
+## Development
+
+PHP >= 7.2
+
+Crear base de datos Sql
+CREATE DATABASE `landing_cars` COLLATE 'utf8mb4_unicode_ci';
+
+
+Lista de comandos para correr en desarrollo
+
+composer install
+
+composer dump-autoload
+php artisan migrate
+php artisan db:seed --class=InitialSeeder
+
+npm install
+
+npm run dev
