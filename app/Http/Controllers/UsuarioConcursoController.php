@@ -28,6 +28,9 @@ class UsuarioConcursoController extends Controller
 
         try {
             $nameValidationRule = 'regex:/^[a-zA-ZÀ-ÿ]+((\s)+([a-zA-ZÀ-ÿ])+)*$/';
+            if(empty($request->email)) {
+                $request->email = null;
+            }
             // establecemos las reglas de validación
             $rules = [
                 'cedula' => ['required', 'unique:App\UsuarioConcurso,cedula', 'digits_between:5,12'],
@@ -35,8 +38,8 @@ class UsuarioConcursoController extends Controller
                 'apellido' => ['required', $nameValidationRule, 'between:3,20'],
                 'ciudad' => ['required', 'integer', 'exists:ciudades,id'],
                 'celular' => ['required', 'digits_between:7,10'],
-                'email' => ['email'],
-                'habeas_data' => ['required', 'boolean'],
+                'email' => ['email', 'nullable'],
+                'habeas_data' => ['required', 'accepted'],
             ];
             // realizamos las validaciones respectivas
             $validator = Validator::make($request->all(), $rules);
