@@ -11,7 +11,7 @@ class UsuarioCampania extends Model
      *
      * @var string
      */
-    protected $table = 'usuarios_campanias';
+    protected $table = 'usuarios_campania';
 
     /**
      * Obtiene la ciudad del usuario
