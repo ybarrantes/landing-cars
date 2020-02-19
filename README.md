@@ -92,21 +92,20 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 - MariaDB
 
 Crear base de datos Sql
-CREATE DATABASE `landing_cars` COLLATE 'utf8mb4_unicode_ci';
+- CREATE DATABASE `landing_cars` COLLATE 'utf8mb4_unicode_ci';
 
 Configurar conexiones DB en el archivo .env
 
 Configurar el virtual host para emular un dominio
 
-Lista de comandos para correr en desarrollo
+Lista de comandos para correr en desarrollo:
 
-composer install
+- composer install
+- composer dump-autoload
+- php artisan key:generate
+- php artisan migrate
+- php artisan db:seed --class=InitialSeeder
 
-composer dump-autoload
-php artisan key:generate
-php artisan migrate
-php artisan db:seed --class=InitialSeeder
+- npm install
 
-npm install
-
-npm run dev
+- npm run dev
