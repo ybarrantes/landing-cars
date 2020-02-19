@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Ciudad;
 use Illuminate\Support\Facades\Validator;
+use App\UsuarioConcurso;
 
 class UsuarioConcursoController extends Controller
 {
@@ -29,7 +30,7 @@ class UsuarioConcursoController extends Controller
             $nameValidationRule = 'regex:/^[a-zA-ZÀ-ÿ]+((\s)+([a-zA-ZÀ-ÿ])+)*$/';
             // establecemos las reglas de validación
             $rules = [
-                'cedula' => ['required', 'unique:App\UsuarioCampania,cedula', 'digits_between:5,12'],
+                'cedula' => ['required', 'unique:App\UsuarioConcurso,cedula', 'digits_between:5,12'],
                 'nombre' => ['required', $nameValidationRule, 'between:3,20'],
                 'apellido' => ['required', $nameValidationRule, 'between:3,20'],
                 'ciudad' => ['required', 'integer', 'exists:ciudades,id'],
@@ -47,7 +48,7 @@ class UsuarioConcursoController extends Controller
             }
 
             // si las validaciones funcionan, creamos una instancia del modelo
-            $model = new \App\UsuarioCampania;
+            $model = new UsuarioConcurso;
             $model->cedula = $request->cedula;
             $model->nombre = $request->nombre;
             $model->apellido = $request->apellido;
@@ -79,17 +80,32 @@ class UsuarioConcursoController extends Controller
         ];
 
         try {
+            // obtenemos los concursantes
+            $listado = UsuarioConcurso::all();
 
-            $listado = \App\UsuarioCampania::all();
-
+            // evaluamos la cantidad de participantes
             if($listado->count() < 5) {
                 throw new \Exception("No hay suficientes usuarios para realizar el sorteo", -911);
             }
 
+            // seleccionamos al ganador
             $ganador = $listado->random();
+            // liberamos memoria
+            unset($listado);
 
+            $data = [
+                'cedula' => $ganador->cedula,
+                'nombre' => $ganador->nombre,
+                'apellido' => $ganador->apellido,
+                'celular' => $ganador->celular,
+            ];
+
+            // liberamos memoria
+            unset($ganador);
+
+            // preparamos la salida
             $result['success'] = true;
-            $result['data'] = $ganador;
+            $result['data'] = $data;
         } catch (\Exception $e) {
             Log::error($e);
             // evaluamos el codigo -911 (mensajes controlados) de lo contrarios enviamos un mensaje generico a interfaz

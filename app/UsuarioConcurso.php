@@ -3,15 +3,18 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class UsuarioCampania extends Model
+class UsuarioConcurso extends Model
 {
+    use SoftDeletes;
+
     /**
      * Tabla en base de datos
      *
      * @var string
      */
-    protected $table = 'usuarios_campania';
+    protected $table = 'usuarios_concurso';
 
     /**
      * Obtiene la ciudad del usuario
